@@ -22,6 +22,7 @@ $row = $stmt->fetch ();
 
 if ($_POST ['password'] == $row ['password']) {
 	$_SESSION ['user'] = $_POST ['username'];
+	$_SESSION['user_type'] = $row['type'];
 	echo 'success';
 } else {
 	echo "Invalid username and/or password.";

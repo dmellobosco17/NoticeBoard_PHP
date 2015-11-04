@@ -9,7 +9,7 @@ $stmt->execute ( array ('channel'=>'1') );
 $notices = $stmt->fetchAll();
 
 
-$channel = fetchData('channels', array('name'), 'id', '1');
+$channel = fetchData('channels', array('name'), false);
 
 $i=0;
 foreach ($notices as $note){

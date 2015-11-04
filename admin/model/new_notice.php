@@ -15,7 +15,7 @@ $channels = array();
 
 foreach ($ch as $c){
 	$channels[$c]['id'] = $c;
-	$result = fetchData('channels', array('name'), 'id', $c);
+	$result = fetchData('channels', array('name'), false, 'id', $c);
 	$channels[$c]['name'] = $result['name'];
 }
 
