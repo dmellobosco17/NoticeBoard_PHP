@@ -33,6 +33,9 @@ if (! isset ( $_GET ['opt'] )) {
 global $data, $db_con;
 $data=array();
 
+
+include 'model/API_KEYS.php';
+
 // load global parameters
 include 'model/init_globals.php';
 

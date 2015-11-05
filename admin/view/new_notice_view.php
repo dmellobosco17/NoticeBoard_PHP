@@ -1,7 +1,7 @@
 
 <html>
 <head>
-<title><?php echo $app_name;?></title>
+<title><?php echo $app_title;?></title>
 <?php common_view_imports();?>
 <script type="text/javascript" src="view/js/jquery-ui.min.js"></script>
 <link rel="stylesheet" href="view/css/jquery-ui.min.css">

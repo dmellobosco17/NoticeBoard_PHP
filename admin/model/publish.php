@@ -20,4 +20,19 @@ echo "success";
 }catch(PDOException $e){
 	echo $e->getMessage();
 }
+
+$notice = array(
+	'subject' => $subject,
+	'content' => $content,
+	'priority' => $priority
+);
+
+
+$i = fetchData('tokens', 'token', true);
+
+$ids = array();
+foreach ($i as $j){
+	array_push($ids, $j['token']);
+}
+sendGoogleCloudMessage($notice, $ids);
 ?>
