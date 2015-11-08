@@ -21,10 +21,15 @@ echo "success";
 	echo $e->getMessage();
 }
 
+$notice_id = $db_con->lastInsertId() ;
+
 $notice = array(
 	'subject' => $subject,
 	'content' => $content,
-	'priority' => $priority
+	'priority' => $priority,
+	'channel' => $channel,
+	'DOE' => $DOE,
+	'id' => $notice_id
 );
 
 
