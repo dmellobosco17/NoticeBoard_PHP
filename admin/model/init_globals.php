@@ -1,6 +1,6 @@
 <?php 
-if(!isset($NB)){
-	die("Attempt to hack!!!");
+if (! defined ( 'INDEX' )) {
+	die("Attempt to hack !!!");
 }
 
 global $app_title;

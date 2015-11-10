@@ -1,8 +1,8 @@
 <?php
 
-global $NB,$data;
+global $data;
 
-$NB = true;
+define("INDEX", true);
 
 $data = array();
 

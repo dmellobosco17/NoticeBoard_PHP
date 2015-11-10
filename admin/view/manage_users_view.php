@@ -1,4 +1,8 @@
-<html>
+<?php 
+if (! defined ( 'INDEX' )) {
+	die("Attempt to hack !!!");
+}
+?>
 <head>
 <title><?php echo $app_title;?></title>
 <?php common_view_imports();?>
@@ -34,7 +38,7 @@
 					<td><?php echo $u['type']?></td>
 					<td><?php echo $u['channel']?></td>
 					<td><?php echo $u['published_notices']?></td>
-					<td><a>[DELETE] </a><a> [EDIT]</a></td>
+					<td><a href="index.php?opt=edit_user&id=<?php echo $u['id']?>"><img src="view/img/edit.svg" title="Edit user"/></a><a href="#" onclick="removeUser(<?php echo $u['id'].",'".$u['username']?>')"><img src="view/img/remove.svg" title="Remove user"/></a></td>
 				</tr>
 					
 					<?php
@@ -43,5 +47,28 @@
 			</table>
 		</div>
 	</div>
+	<script type="text/javascript">
+		function removeUser(id,name){
+			if(confirm("Do you want to delete user \""+name+"\"")){
+				if(confirm("Are you sure?")){
+					$.ajax({
+		                url: 'index.php?opt=remove_user',
+		                dataType: 'text',
+		                type: 'post',
+		                data: 'id='+id,
+		                success: function( data, textStatus, jQxhr ){
+		                    if(data == 'success'){
+			                    alert("User removed successfuly");
+			                    window.location.assign("index.php?opt=manage_users");
+		                    }
+		                },
+		                error: function( jqXhr, textStatus, errorThrown ){
+		                    $("#output").html( errorThrown );
+		                }
+		            });
+				}
+			}
+		}
+	</script>
 </body>
 </html>

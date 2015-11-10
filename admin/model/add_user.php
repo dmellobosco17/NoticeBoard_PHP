@@ -1,4 +1,8 @@
 <?php
+if (! defined ( 'INDEX' )) {
+	die("Attempt to hack !!!");
+}
+
 //Information submitted?
 if(@$_GET['act'] == 'do')
 {
@@ -9,6 +13,7 @@ if(@$_GET['act'] == 'do')
 		'type' => $_POST['type'],
 		'channel' => '['.$_POST['channel'].']'
 	);
+	
 	$stmt = $db_con->prepare ($sql);
 	$stmt->execute ($params);
 	

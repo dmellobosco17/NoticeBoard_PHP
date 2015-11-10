@@ -1,20 +1,25 @@
 <?php
+if (! defined ( 'INDEX' )) {
+	die("Attempt to hack !!!");
+}
+
 global $data;
 
-$sql="SELECT `user`, `subject`, `content`, `time`, `expiry`, `channel`, `priority` FROM `notices` WHERE `channel`=:channel ORDER BY `id` DESC LIMIT 20";
+$stmt = $db_con->prepare ( 'SELECT * FROM `users` WHERE `username` = :username LIMIT 1' );
+$stmt->execute ( array (
+		'username' => $_SESSION ['user']
+) );
+
+$row = $stmt->fetch ();
+$json = $row['channel'];
+$ch = json_decode($json);
+
+$sql="SELECT `user`, `subject`, `content`, `time`, `expiry`, `channel`, `channel_name`, `priority` FROM `notices` WHERE `channel` IN (".implode(',', $ch).") ORDER BY `id` DESC";
 
 $stmt = $db_con->prepare ($sql);
-$stmt->execute ( array ('channel'=>'1') );
+$stmt->execute(null);
 
 $notices = $stmt->fetchAll();
-
-
-$channel = fetchData('channels', array('name'), false);
-
-$i=0;
-foreach ($notices as $note){
-	$notices[$i++]['channel'] = $channel['name'];
-}
 
 $data['notices'] = $notices;
 ?>

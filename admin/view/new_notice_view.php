@@ -1,4 +1,8 @@
-
+<?php 
+if (! defined ( 'INDEX' )) {
+	die("Attempt to hack !!!");
+}
+?>
 <html>
 <head>
 <title><?php echo $app_title;?></title>

@@ -1,4 +1,8 @@
 <?php
+if (! defined ( 'INDEX' )) {
+	die("Attempt to hack !!!");
+}
+
 $c = urldecode($_POST['channels']);
 
 $channels = json_decode($c);
@@ -18,6 +22,7 @@ foreach($notes as $note){
 	'content' => $note['content'],
 	'priority' => $note['priority'],
 	'channel' => $note['channel'],
+	'channel_name' => $note['channel_name'],
 	'expiry' => $note['expiry']
 ));
 }

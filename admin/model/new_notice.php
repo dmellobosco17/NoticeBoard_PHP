@@ -1,4 +1,7 @@
 <?php
+if (! defined ( 'INDEX' )) {
+	die("Attempt to hack !!!");
+}
 
 $stmt = $db_con->prepare ( 'SELECT * FROM `users` WHERE `username` = :username LIMIT 1' );
 $stmt->execute ( array (

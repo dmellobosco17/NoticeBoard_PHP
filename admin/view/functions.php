@@ -1,3 +1,8 @@
+<?php 
+if (! defined ( 'INDEX' )) {
+	die("Attempt to hack !!!");
+}
+?>
 <?php
 function common_view_imports() {
 	// W3.CSS
@@ -11,9 +16,10 @@ function side_navigation_panel($active = 'NULL') {
 	
 	$item ['Home'] = 'index.php';
 	$item ['New Notice'] = 'index.php?opt=new_notice';
-	$item ['Search'] = 'index.php?opt=search';
+	//$item ['Search'] = 'index.php?opt=search';
 	$item ['Advanced Options'] = array (
 			'Manage Users' => 'index.php?opt=manage_users',
+			'Manage Channels' => 'index.php?opt=manage_channels',
 			'Change Password' => 'index.php?opt=password',
 			'Logs' => 'index.php?opt=logs' 
 	);
@@ -184,5 +190,10 @@ function sendGoogleCloudMessage($data, $ids) {
 	// ------------------------------
 	
 	echo $result;
+}
+
+function handle_error($errno, $errstr){
+	if(@$_GET['debug'] == 'died')
+		echo "<b>Error:</b> [$errno] $errstr<br>";
 }
 ?>

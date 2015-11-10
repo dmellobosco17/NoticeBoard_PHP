@@ -1,4 +1,7 @@
-<?php
+<?php 
+if (! defined ( 'INDEX' )) {
+	die("Attempt to hack !!!");
+}
 ?>
 <html>
 <head>
@@ -28,12 +31,12 @@
 					<div class="w3-row">
 						<div class="w3-group w3-col m3">
 							<label class="w3-label"><b>Notice priority</b></label>
-							<h5><?php echo $note['priority'];?></h5>
+							<h5><?php echo $note['priority'] == '1'? 'Normal' : 'Important';?></h5>
 						</div>
 						<div class="w3-group w3-col m1"></div>
 						<div class="w3-group w3-col m3">
 							<label class="w3-label"><b>Channel</b></label>
-							<h5><?php echo $note['channel'];?></h5>
+							<h5><?php echo $note['channel_name'];?></h5>
 						</div>
 						<div class="w3-group w3-col m1"></div>
 						<div class="w3-group w3-col m3">

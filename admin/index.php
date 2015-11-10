@@ -1,4 +1,6 @@
 <?php
+//TODO allow flow from index.php ONLY !!!
+
 // server should keep session data for AT LEAST 1 hour
 ini_set('session.gc_maxlifetime', 3600);
 
@@ -7,9 +9,8 @@ session_set_cookie_params(3600);
 
 session_start ();
 
-global $NB;
+define("INDEX", true);
 
-$NB = "true";
 
 if (! isset ( $_GET ['opt'] )) {
 	$_GET ['opt'] = "dashboard";
@@ -33,7 +34,6 @@ if (! isset ( $_GET ['opt'] )) {
 global $data, $db_con;
 $data=array();
 
-
 include 'model/API_KEYS.php';
 
 // load global parameters
@@ -44,6 +44,9 @@ include 'view/functions.php';
 
 // Initialize database connection
 include 'model/db_connection.php';
+
+//Set error handler
+set_error_handler("handle_error");
 
 switch ($_GET ['opt']) {
 	case 'dashboard' :
@@ -64,6 +67,34 @@ switch ($_GET ['opt']) {
 	case 'publish' :
 		include 'model/publish.php';
 		break;
+	case 'live_feed' :
+		include 'model/live_feed.php';
+		break;
+	case 'password' :
+		include 'model/change_password.php';
+		include 'view/change_password_view.php';
+		break;
+	case 'edit_user' :
+		//Is user admin
+		if($_SESSION['user_type'] != 'ADMIN'){
+			alert("Only admin can access this page!!!");
+			include 'model/dashboard.php';
+			include 'view/dashboard_view.php';
+			break;
+		}
+		include 'model/edit_user.php';
+		include 'view/edit_user_view.php';
+		break;
+	case 'remove_user' :
+		//Is user admin
+		if($_SESSION['user_type'] != 'ADMIN'){
+			alert("Only admin can access this page!!!");
+			include 'model/dashboard.php';
+			include 'view/dashboard_view.php';
+			break;
+		}
+		include 'model/remove_user.php';
+		break;
 	case 'manage_users' :
 		//Is user admin
 		if($_SESSION['user_type'] != 'ADMIN'){
@@ -75,6 +106,27 @@ switch ($_GET ['opt']) {
 		include 'model/manage_users.php';
 		include 'view/manage_users_view.php';
 		break;
+	case 'remove_channel' :
+		//Is user admin
+		if($_SESSION['user_type'] != 'ADMIN'){
+			alert("Only admin can access this page!!!");
+			include 'model/dashboard.php';
+			include 'view/dashboard_view.php';
+			break;
+		}
+		include 'model/remove_channel.php';
+		break;
+	case 'manage_channels' :
+		//Is user admin
+		if($_SESSION['user_type'] != 'ADMIN'){
+			alert("Only admin can access this page!!!");
+			include 'model/dashboard.php';
+			include 'view/dashboard_view.php';
+			break;
+		}
+		include 'model/manage_channels.php';
+		include 'view/manage_channels_view.php';
+		break;
 	case 'add_user' :
 		//Is user admin
 		if($_SESSION['user_type'] != 'ADMIN'){
@@ -85,6 +137,18 @@ switch ($_GET ['opt']) {
 		}
 		include 'model/add_user.php';
 		include 'view/add_user_view.php';
+		
+		break;
+	case 'add_channel' :
+		//Is user admin
+		if($_SESSION['user_type'] != 'ADMIN'){
+			alert("Only admin can access this page!!!");
+			include 'model/dashboard.php';
+			include 'view/dashboard_view.php';
+			break;
+		}
+		include 'model/add_channel.php';
+		include 'view/add_channel_view.php';
 		
 		break;
 	default :
