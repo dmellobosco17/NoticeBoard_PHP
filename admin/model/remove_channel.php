@@ -29,23 +29,6 @@ foreach ( $users as $u ) {
 	}
 }
 
-// Remove entries from tokens table
-$sql = "SELECT `id`,`channels` FROM `tokens` WHERE `channels` LIKE ?";
-$stmt = $db_con->prepare ( $sql );
-$stmt->execute ( array("%$id%") );
-$users = $stmt->fetchAll ();
-
-foreach ( $users as $u ) {
-	$channels = json_decode ( $u['channels']);
-	if (($key = array_search ( $id, $channels )) !== false) {
-		unset ( $channels [$key] );
-		$channels = array_values($channels);
-		$sql = "UPDATE `tokens` SET `channels`= ? WHERE `id` = $u[id]";
-		$stmt = $db_con->prepare ( $sql );
-		$stmt->execute ( array(json_encode($channels)) );
-	}
-}
-
 $sql = "DELETE FROM `channels` WHERE `id` = :id";
 $stmt = $db_con->prepare ( $sql );
 if ($stmt->execute ( $params )) {

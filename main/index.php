@@ -5,6 +5,7 @@ global $data;
 define("INDEX", true);
 
 $data = array();
+$data['log'] = "";
 
 include 'model/db_connection.php';
 
