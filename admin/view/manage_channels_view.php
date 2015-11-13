@@ -38,7 +38,7 @@ if (! defined ( 'INDEX' )) {
 					<td><?php echo $ch['description']?></td>
 					<td style="text-align: center"><?php echo $ch['published_notices']?></td>
 					<td style="text-align: center"><?php echo $ch['subs']?></td>
-					<td><a href="index.php?opt=edit_user&id=<?php echo $ch['id']?>"><img src="view/img/edit.svg" title="Edit user"/></a><a href="#" onclick="removeChannel(<?php echo $ch['id'].",'".$ch['name']?>')"><img src="view/img/remove.svg" title="Remove user"/></a></td>
+					<td><a href="index.php?opt=edit_channel&id=<?php echo $ch['id']?>"><img src="view/img/edit.svg" title="Edit user"/></a><a href="#" onclick="removeChannel(<?php echo $ch['id'].",'".$ch['name']?>')"><img src="view/img/remove.svg" title="Remove user"/></a></td>
 				</tr>
 					
 					<?php

@@ -50,6 +50,9 @@ $channels = json_decode ( $c );
 
 // Add new channels
 foreach ( $channels as $ch ) {
+	//skip if it's univeral channel
+	if($ch == 0)
+		continue;
 	$sql = "SELECT * FROM `channel_$ch` WHERE `imei` = :imei";
 	$stmt = $db_con->prepare ( $sql );
 	$stmt->execute ( array (
@@ -73,9 +76,9 @@ foreach ( $db_channels as $ch ) {
 }
 
 array_push($channels, 0);
-$sql = "SELECT * FROM `notices` WHERE `channel` IN (" . implode ( ',', $channels ) . ")";
+$sql = "SELECT * FROM `notices` WHERE `channel` IN (" . implode ( ',', $channels ) . ") AND DATE(`expiry`) >= :date";
 $stmt = $db_con->prepare ( $sql );
-$stmt->execute ();
+$stmt->execute (array('date' => date("Y-m-d")));
 
 $notes = $stmt->fetchAll ();
 
@@ -102,7 +105,8 @@ foreach ( $chans as $ch ) {
 	array_push ( $channels, array (
 			'id' => $ch ['id'],
 			'name' => $ch ['name'],
-			'description' => $ch ['description'] 
+			'description' => $ch ['description'],
+			'image' => $ch ['image']
 	) );
 }
 

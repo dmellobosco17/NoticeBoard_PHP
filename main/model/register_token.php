@@ -24,8 +24,7 @@ if(is_array($result)){
 		$data['result'] = 'Failed to update tokens table';
 	}
 	//Update channels table
-	$json = $result['channels'];
-	$ch = json_decode($json);
+	$ch = fetchData('channels','id',true);
 	
 	foreach ($ch as $channel){
 		$sql2="UPDATE `channel_".$channel."` SET `token`=:token WHERE `imei`=:imei";
@@ -37,6 +36,7 @@ if(is_array($result)){
 			$data['result'] = 'Failed to update channel '.$channel;
 		}
 	}
+	$data['channels'] = $result['channels'];
 }
 else{
 	$sql="INSERT INTO `tokens` (`token`,`imei`) VALUES (:token,:imei)";

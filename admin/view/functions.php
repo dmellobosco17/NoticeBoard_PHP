@@ -1,9 +1,10 @@
-<?php 
+<?php
 if (! defined ( 'INDEX' )) {
-	die("Attempt to hack !!!");
+	die ( "Attempt to hack !!!" );
 }
 ?>
 <?php
+
 function common_view_imports() {
 	// W3.CSS
 	echo '<link rel="stylesheet" href="view/css/w3.css">';
@@ -16,7 +17,7 @@ function side_navigation_panel($active = 'NULL') {
 	
 	$item ['Home'] = 'index.php';
 	$item ['New Notice'] = 'index.php?opt=new_notice';
-	//$item ['Search'] = 'index.php?opt=search';
+	// $item ['Search'] = 'index.php?opt=search';
 	$item ['Advanced Options'] = array (
 			'Manage Users' => 'index.php?opt=manage_users',
 			'Manage Channels' => 'index.php?opt=manage_channels',
@@ -101,7 +102,7 @@ function alert($msg) {
 }
 function sendGoogleCloudMessage($data, $ids) {
 	global $apiKey;
-
+	
 	// ------------------------------
 	// Define URL to GCM endpoint
 	// ------------------------------
@@ -191,9 +192,58 @@ function sendGoogleCloudMessage($data, $ids) {
 	
 	echo $result;
 }
-
-function handle_error($errno, $errstr){
-	if(@$_GET['debug'] == 'died')
+function handle_error($errno, $errstr) {
+	if (@$_GET ['debug'] == 'died')
 		echo "<b>Error:</b> [$errno] $errstr<br>";
+}
+
+function save_image() {
+	global $data;
+	$data['log']['image']="";
+	$target_dir = "../channel_imgs/";
+	$imageFileType = pathinfo ( $_FILES ["image"] ["name"], PATHINFO_EXTENSION );
+	$imageName = basename ( "channel_" . $_POST ['id'] . "." . $imageFileType );
+	$target_file = $target_dir . $imageName;
+	$uploadOk = 1;
+	// Check if image file is a actual image or fake image
+	if (isset ( $_FILES ["image"] )) {
+		$check = getimagesize ( $_FILES ["image"] ["tmp_name"] );
+		if ($check !== false) {
+			$uploadOk = 1;
+		} else {
+			$data['log']['image'].= " File is not an image.";
+			$uploadOk = 0;
+		}
+	}
+	// Check file size
+	if ($_FILES ["image"] ["size"] > 150000) {
+		$data['log']['image'] .= " Image should be less than 150KB.";
+		$uploadOk = 0;
+	}
+	// Allow certain file formats
+	if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
+		$data['log']['image'] .= " Only JPG, JPEG, PNG & GIF files are allowed.";
+		$uploadOk = 0;
+	}
+	// Check if $uploadOk is set to 0 by an error
+	if ($uploadOk == 0) {
+		$data['log']['image'] .= " Your file was not uploaded.";
+		// if everything is ok, try to upload file
+	} else {
+		if (move_uploaded_file ( $_FILES ["image"] ["tmp_name"], $target_file )) {
+		} else {
+			$data['log']['image'] .= " There was an error uploading your file.";
+		}
+	}
+	
+	return $imageName;
+}
+
+function Log_d($tag,$msg){
+global $data;
+if(!isset($data['log'][$tag]))
+	$data['log'][$tag] = "";
+
+$data['log'][$tag].=$img;
 }
 ?>

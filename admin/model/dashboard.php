@@ -14,7 +14,7 @@ $row = $stmt->fetch ();
 $json = $row['channel'];
 $ch = json_decode($json);
 
-$sql="SELECT `user`, `subject`, `content`, `time`, `expiry`, `channel`, `channel_name`, `priority` FROM `notices` WHERE `channel` IN (".implode(',', $ch).") ORDER BY `id` DESC";
+$sql="SELECT `id`,`user`, `subject`, `content`, `time`, `expiry`, `channel`, `channel_name`, `priority` FROM `notices` WHERE `channel` IN (".implode(',', $ch).") ORDER BY `id` DESC";
 
 $stmt = $db_con->prepare ($sql);
 $stmt->execute(null);

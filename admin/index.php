@@ -1,4 +1,5 @@
 <?php
+header('Content-Type: text/html; charset=utf-8');
 //TODO allow flow from index.php ONLY !!!
 
 // server should keep session data for AT LEAST 1 hour
@@ -33,6 +34,7 @@ if (! isset ( $_GET ['opt'] )) {
 
 global $data, $db_con;
 $data=array();
+$data['log']=array();
 
 include 'model/API_KEYS.php';
 
@@ -69,6 +71,9 @@ switch ($_GET ['opt']) {
 		break;
 	case 'live_feed' :
 		include 'model/live_feed.php';
+		break;
+	case 'update_notice' :
+		include 'model/update_notice.php';
 		break;
 	case 'password' :
 		include 'model/change_password.php';
@@ -149,6 +154,18 @@ switch ($_GET ['opt']) {
 		}
 		include 'model/add_channel.php';
 		include 'view/add_channel_view.php';
+		
+		break;
+	case 'edit_channel' :
+		//Is user admin
+		if($_SESSION['user_type'] != 'ADMIN'){
+			alert("Only admin can access this page!!!");
+			include 'model/dashboard.php';
+			include 'view/dashboard_view.php';
+			break;
+		}
+		include 'model/edit_channel.php';
+		include 'view/edit_channel_view.php';
 		
 		break;
 	default :

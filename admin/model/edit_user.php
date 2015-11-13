@@ -5,7 +5,7 @@ if (! defined ( 'INDEX' )) {
 
 
 // Information submitted?
-if (@$_GET ['act'] == 'do' && isset ( $_POST['id'] )) {
+if (@$_POST ['act'] == 'do' && isset ( $_POST['id'] )) {
 	if($_SESSION['user_type'] != 'ADMIN'){
 		die("Attempt to hack !!!");
 	}

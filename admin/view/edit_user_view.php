@@ -18,8 +18,9 @@ if (! defined ( 'INDEX' )) {
 				<h2>Edit User : <?php echo $user['username']?></h2>
 			</div>
 			<form class="w3-container" method="post"
-				action="index.php?opt=edit_user&act=do" onsubmit="return validate()">
+				action="index.php?opt=edit_user&act=do&id=<?echo $user['id']?>" onsubmit="return validate()">
 				<input type="hidden" name="id" value="<?php echo $user['id'];?>">
+				<input name="act" type="hidden" value="do">
 				<div class="w3-row">
 					<div class="w3-group w3-col m5">
 						<div class="w3-group">
@@ -72,10 +73,14 @@ if (! defined ( 'INDEX' )) {
             type: 'post',
             data: 'seed='+$("#username").val()+'&match=exact&procedure_code=new_user_name',
             success: function( data, textStatus, jQxhr ){
-                if(data != '[]')
+                if(data != '[]'){
                     $("#err").show();
-                else
+                	$("#edit_user").prop('disabled', true);
+                }
+                else{
                 	$("#err").hide();
+                	$("#edit_user").prop('disabled', false);
+                }
             },
             error: function( jqXhr, textStatus, errorThrown ){
                 $("#output").html( errorThrown );

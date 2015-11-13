@@ -7,6 +7,8 @@ if (! defined ( 'INDEX' )) {
 <head>
 <title><?php echo $app_title;?></title>
 <?php common_view_imports();?>
+<script type="text/javascript" src="view/js/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="view/css/jquery-ui.min.css">
 
 </head>
 <body>
@@ -20,7 +22,7 @@ if (! defined ( 'INDEX' )) {
 			$date=date_create($note['expiry']);
 			$expiry=date_format($date,"d/m/Y");
 			$date=date_create($note['time']);
-			$time=date_format($date,"d/m/Y H:i A");
+			$time=date_format($date,"d/m/Y h:i A");
 				
 			?>
 			<div class="w3-card-8" style="margin: 0px 30px 0px 330px;">
@@ -40,8 +42,8 @@ if (! defined ( 'INDEX' )) {
 						</div>
 						<div class="w3-group w3-col m1"></div>
 						<div class="w3-group w3-col m3">
-							<label class="w3-label"><b>Expiry Date</b></label>
-							<h5><?php echo $expiry;?></h5>
+							<label class="w3-label"><b>Expiry Date</b>(<a id="change_DOE" href="#" onclick="update_date(<?php echo $note['id'];?>)">Change</a>)</label>
+							<h5><input type="text" id="DOE" value="<?php echo $expiry;?>"></h5>
 						</div>
 						<div class="w3-group w3-col m8">
 							<label class="w3-label"><b>Published By</b></label>
@@ -64,5 +66,32 @@ if (! defined ( 'INDEX' )) {
 		}
 	
 	?>
+	<script type="text/javascript">
+		$("#DOE").datepicker({dateFormat: 'dd/mm/yy'});
+		function update_date(id){
+			if(confirm("Do you want to update it's expiry date?")){
+				date = $("#DOE").val();
+				arr = date.split('/');
+				date = arr[2]+"-"+arr[1]+"-"+arr[0];
+				$.ajax({
+		            url: 'index.php?opt=update_notice',
+		            dataType: 'text',
+		            type: 'post',
+		            data: 'DOE='+date+'&id='+id,
+		            success: function( data, textStatus, jQxhr ){
+						if(data=="success"){
+							alert("Expiry date changed");
+						}
+						else{
+							alert(data);
+						}
+		            },
+		            error: function( jqXhr, textStatus, errorThrown ){
+		                alert(errorThrown);
+		            }
+		        });
+			}
+		}
+	</script>
 	</body>
 </html>
