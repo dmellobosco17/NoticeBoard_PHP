@@ -2,6 +2,10 @@ input, textarea{
 	background-color: white;
 }
 
+.notice{
+	min-width: 768px;
+}
+
 @import url(http://fonts.googleapis.com/css?family=Raleway:400,200);
 #cssmenu,
 #cssmenu ul,

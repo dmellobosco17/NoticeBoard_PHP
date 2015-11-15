@@ -27,7 +27,7 @@ if(is_array($result)){
 	$ch = fetchData('channels','id',true);
 	
 	foreach ($ch as $channel){
-		$sql2="UPDATE `channel_".$channel."` SET `token`=:token WHERE `imei`=:imei";
+		$sql2="UPDATE `channel_$channel[id]` SET `token`=:token WHERE `imei`=:imei";
 		try{
 			$stmt = $db_con->prepare ($sql2);
 			$stmt -> execute ($params);

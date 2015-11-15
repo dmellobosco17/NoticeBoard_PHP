@@ -27,9 +27,10 @@ function side_navigation_panel($active = 'NULL') {
 	
 	$item ['Log Out'] = 'index.php?opt=logout';
 	
-	echo "<div class='w3-sidenav w3-teal w3-card-8' style='width:19%'>
-		  <header class='w3-container w3-green'>
-		  <h5>$_SESSION[user]</h5>
+	echo "<div class='w3-sidenav w3-teal w3-card-8' style='width:300px'>
+		  <header class='w3-container w3-green' style='width: 300px;margin: -1px -30px 0px -16px;'>
+		  <img src='../channel_imgs/cover.jpg' style='width: 300px;'/>
+		  <h2 style='position: absolute;top: 113px;padding-left: 15px; background: rgba(0, 0, 0, 0.3); width: 100%;'>".strtoupper($_SESSION[user])."</h2>
 		  </header>
 		  <header class='w3-container w3-teal'>
 		  <h5>Menu</h5>

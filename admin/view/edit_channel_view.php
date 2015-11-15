@@ -36,7 +36,7 @@ if (! defined ( 'INDEX' )) {
 						<p id="err" style="background-color: pink;">Channel name not availabe, Please choose different name.</p>
 					</div>
 					<div class="w3-group w3-col m6">
-						<img alt="channel_image" src="../channel_imgs/<?php echo $ch['image']."?".rand()?>">
+						<img style="width:65%" alt="channel_image" src="../channel_imgs/<?php echo $ch['image']."?".rand()?>">
 						<input type="file" name="image" id="image">
 					</div>
 				</div>

@@ -25,7 +25,7 @@ if (! defined ( 'INDEX' )) {
 			$time=date_format($date,"d/m/Y h:i A");
 				
 			?>
-			<div class="w3-card-8" style="margin: 0px 30px 0px 330px;">
+			<div class="w3-card-8 notice" style="margin: 0px 30px 0px 330px;">
 				<div class="w3-container <?php echo $note['priority']==1?'w3-teal':'w3-deep-orange';?>">
 					<h2><?php echo $note['subject'];?></h2>
 				</div>
@@ -43,7 +43,7 @@ if (! defined ( 'INDEX' )) {
 						<div class="w3-group w3-col m1"></div>
 						<div class="w3-group w3-col m3">
 							<label class="w3-label"><b>Expiry Date</b>(<a id="change_DOE" href="#" onclick="update_date(<?php echo $note['id'];?>)">Change</a>)</label>
-							<h5><input type="text" id="DOE" value="<?php echo $expiry;?>"></h5>
+							<h5><input type="text" id="DOE_<?php echo $note['id']?>" class="DOE" value="<?php echo $expiry;?>"></h5>
 						</div>
 						<div class="w3-group w3-col m8">
 							<label class="w3-label"><b>Published By</b></label>
@@ -67,10 +67,10 @@ if (! defined ( 'INDEX' )) {
 	
 	?>
 	<script type="text/javascript">
-		$("#DOE").datepicker({dateFormat: 'dd/mm/yy'});
+		$(".DOE").datepicker({dateFormat: 'dd/mm/yy'});
 		function update_date(id){
 			if(confirm("Do you want to update it's expiry date?")){
-				date = $("#DOE").val();
+				date = $("#DOE_"+id).val();
 				arr = date.split('/');
 				date = arr[2]+"-"+arr[1]+"-"+arr[0];
 				$.ajax({

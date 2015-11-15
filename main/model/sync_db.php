@@ -39,7 +39,7 @@ if (is_array ( $result )) {
 				$stmt->execute ( $params );
 				$data ['result'] = 'success';
 			} catch ( PDOException $e ) {
-				$data ['result'] = 'Failed to update channel ' . $channel;
+				$data ['result'] = 'Failed to update channel ' . $channel['id'];
 			}
 		}
 	}
@@ -48,7 +48,8 @@ if (is_array ( $result )) {
 // Now fetch notices
 $channels = json_decode ( $c );
 
-// Add new channels
+if($token != 'NULL'){
+// Add user to new channels
 foreach ( $channels as $ch ) {
 	//skip if it's univeral channel
 	if($ch == 0)
@@ -64,7 +65,7 @@ foreach ( $channels as $ch ) {
 		$data['log'].=$stmt->execute ( $params );
 	}
 }
-
+}
 // Remove user from channels
 $db_channels = fetchData ( 'channels', 'id', true );
 foreach ( $db_channels as $ch ) {
