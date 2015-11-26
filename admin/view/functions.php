@@ -191,7 +191,8 @@ function sendGoogleCloudMessage($data, $ids) {
 	// Debug GCM response
 	// ------------------------------
 	
-	echo $result;
+	$result = json_decode($result,true);
+	echo "Notice sent to ".$result['success']." people.";
 }
 function handle_error($errno, $errstr) {
 	if (@$_GET ['debug'] == 'died')

@@ -5,6 +5,7 @@ if (! defined ( 'INDEX' )) {
 
 $token = urldecode($_POST['token']);
 $IMEI = urldecode($_POST['IMEI']);
+$DEVICE = urldecode($_POST['DEVICE']);
 
 $result = fetchData('tokens', array('token','channels'), false, 'imei', $IMEI);
 $params = array ('token' => $token, 'imei' => $IMEI);
@@ -39,10 +40,11 @@ if(is_array($result)){
 	$data['channels'] = $result['channels'];
 }
 else{
-	$sql="INSERT INTO `tokens` (`token`,`imei`) VALUES (:token,:imei)";
+	$sql="INSERT INTO `tokens` (`token`,`imei`,`device`) VALUES (:token,:imei,:device)";
 	try{
+	$params['device'] = $DEVICE;
 $stmt = $db_con->prepare ($sql);
-$stmt -> execute ($params);
+$stmt -> execute (array ('token' => $token, 'imei' => $IMEI, 'device' => $DEVICE));
 $data['result'] = 'success';
 }catch(PDOException $e){
 	$data['result'] = 'Failed';

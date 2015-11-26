@@ -31,7 +31,7 @@ try {
 			'priority' => $priority 
 	) );
 	
-	echo "success";
+	//echo "success";
 } catch ( PDOException $e ) {
 	echo $e->getMessage ();
 }
